@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function DashboardAdmin()
+    {
+        return view('Home.Dashboard');
+    }
+
+    public function notFound()
+    {
+        return view('NotFound.Error');
+    }
+}
