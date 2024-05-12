@@ -35,12 +35,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Logout', [LoginController::class, 'logout']);
     Route::get('/Dashboard', [HomeController::class, 'DashboardAdmin']);
     Route::get('/404NotFound', [HomeController::class, 'NotFound']);
-    Route::get('/fetchall', [CategoriDebitController::class, 'fetchAll'])->name('fetchAll');
+    
+    // Category Debit
+    Route::get('/fetchallCategoryDebit', [CategoriDebitController::class, 'fetchAll'])->name('fetchAllCategoryDebit');
     Route::get('/CategoryDebit', [CategoriDebitController::class, 'index']);
-    Route::post('/CategoryDebitInsert', [CategoriDebitController::class, 'inputCategory'])->name('inputCategory');
+    Route::post('/CategoryDebitInsert', [CategoriDebitController::class, 'inputCategory'])->name('inputCategoryDebit');
     Route::delete('/deleteCategory', [CategoriDebitController::class, 'deleteCategory'])->name('deleteCategory');
     Route::get('/FormUpdateCategory', [CategoriDebitController::class, 'FormUpdateCategory'])->name('FormUpdateCategory');
-    Route::get('/CategoryCredit', [CategoriCreditController::class, 'viewCategory']);
+    Route::post('/UpdateCategory', [CategoriDebitController::class, 'UpdateCategory'])->name('UpdateCategory');
+
+    // Category Credit
+    Route::get('/CategoryCredit', [CategoriCreditController::class, 'index']);
+    Route::get('/fetchAllCategoryCredit', [CategoriCreditController::class, 'fetchAll'])->name('fetchAll');
+    Route::post('/CategoryCreditInsert', [CategoriCreditController::class, 'inputCategoryCredit'])->name('inputCategoryCredit');
+    Route::get('/FormEditCategory', [CategoriCreditController::class, 'FormEditCategory'])->name('FormEditCategory');
+    Route::post('/EditCategory', [CategoriCreditController::class, 'EditCategory'])->name('EditCategory');
+    Route::delete('/HapusCategory', [CategoriCreditController::class, 'HapusCategory'])->name('HapusCategory');
+
+    
     Route::get('/UangMasuk', [UangMasukController::class, 'viewUangMasuk']);
     Route::get('/UangKeluar', [UangKeluarController::class, 'viewUangKeluar']);
 });

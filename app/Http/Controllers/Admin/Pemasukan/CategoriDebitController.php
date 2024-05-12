@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Pemasukan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CategoryDebit;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriDebitController extends Controller
 {
@@ -21,7 +22,10 @@ class CategoriDebitController extends Controller
                 'name' => 'required|string|max:255',
             ]);
 
-            CategoryDebit::create($validatedData);
+            CategoryDebit::create([
+                'user_id' => Auth::user()->id,
+                'name' => $request->input('name')
+            ]);
 
             return response()->json([
                 'status' => 200,
@@ -110,5 +114,19 @@ class CategoriDebitController extends Controller
         $id = $request->id;
 		$emp = CategoryDebit::find($id);
 		return response()->json($emp);
+    }
+
+    // Handle edit category ajax request
+    public function UpdateCategory(Request $request)
+    {
+        $temp = CategoryDebit::find($request->temp_id);
+        $tempData = [
+            'name' => $request->fname,
+            'user_id' => Auth::user()->id
+        ];
+        $temp->update($tempData);
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 }

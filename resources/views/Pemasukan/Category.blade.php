@@ -134,7 +134,7 @@
             const fd = new FormData(this);
             $("#add_category_btn").text('Adding...');
             $.ajax({
-                url: "{{ route('inputCategory') }}",
+                url: "{{ route('inputCategoryDebit') }}",
                 method: 'post',
                 data: fd,
                 cache: false,
@@ -170,64 +170,93 @@
 
         // form update category ajax request
         $(document).on('click', '.editIcon', function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        $.ajax({
-          url: `{{ route('FormUpdateCategory') }}`,
-          method: 'get',
-          data: {
-            id: id,
-            _token: '{{ csrf_token() }}'
-          },
-          success: function(response) {
-            $("#fname").val(response.name);
-            $("#temp_id").val(response.id);
-          }
+            e.preventDefault();
+            let id = $(this).attr('id');
+            $.ajax({
+                url: `{{ route('FormUpdateCategory') }}`,
+                method: 'get',
+                data: {
+                    id: id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $("#fname").val(response.name);
+                    $("#temp_id").val(response.id);
+                }
+            });
         });
-      });
+
+        // update category ajax request
+        $("#update_category_form").submit(function(e) {
+            e.preventDefault();
+            const fd = new FormData(this);
+            $("#update_category_btn").text('Updating...');
+            $.ajax({
+                url: `{{ route('UpdateCategory') }}`,
+                method: 'post',
+                data: fd,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == 200) {
+                        Swal.fire(
+                            'Updated!',
+                            'Category Updated Successfully!',
+                            'success'
+                        )
+                        fetchAllCategories();
+                    }
+                    $("#update_category_btn").text('Update Category');
+                    $("#update_category_form")[0].reset();
+                    $("#updateModalCategory").modal('hide');
+                }
+            });
+        });
 
         // delete category ajax request
         $(document).on('click', '.deleteIcon', function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        let csrf = '{{ csrf_token() }}';    
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $.ajax({
-              url: `{{ route('deleteCategory') }}`,
-              method: 'delete',
-              data: {
-                id: id,
-                _token: csrf
-              },
-              success: function(response) {
-                console.log(response);
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                )
-                fetchAllCategories();
-              }
-            });
-          }
-        })
-      });
+            e.preventDefault();
+            let id = $(this).attr('id');
+            let csrf = '{{ csrf_token() }}';
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `{{ route('deleteCategory') }}`,
+                        method: 'delete',
+                        data: {
+                            id: id,
+                            _token: csrf
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            Swal.fire(
+                                'Deleted!',
+                                'Your data has been deleted.',
+                                'success'
+                            )
+                            fetchAllCategories();
+                        }
+                    });
+                }
+            })
+        });
 
         // fetch all Category ajax request
         fetchAllCategories();
 
         function fetchAllCategories() {
             $.ajax({
-                url: `{{ route('fetchAll') }}`,
+                url: `{{ route('fetchAllCategoryDebit') }}`,
                 method: 'get',
                 success: function(response) {
                     $("#show_all_categories").html(response);
