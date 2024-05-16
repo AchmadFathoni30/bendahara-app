@@ -133,22 +133,12 @@
         <div class="leftside-menu">
 
             <!-- Brand Logo Light -->
-            <a href="index.html" class="logo logo-light">
+            <a href="#" class="logo logo-light">
                 <span class="logo-lg">
-                    <img src="{{ asset('Bootstrap/assets/images/logo.png') }}" alt="logo">
+                    <img src="{{ asset('Bootstrap/assets/images/LogoMasjid.png') }}" style="width: 70px; height:70px; margin:20px;" alt="logo">
                 </span>
                 <span class="logo-sm">
-                    <img src="{{ asset('Bootstrap/assets/images/logo-sm.png') }}" alt="small logo">
-                </span>
-            </a>
-
-            <!-- Brand Logo Dark -->
-            <a href="index.html" class="logo logo-dark">
-                <span class="logo-lg">
-                    <img src="{{ asset('Bootstrap/assets/images/logo-dark.png') }}" alt="dark logo">
-                </span>
-                <span class="logo-sm">
-                    <img src="{{ asset('Bootstrap/assets/images/logo-sm.png') }}" alt="small logo">
+                    <img src="{{ asset('Bootstrap/assets/images/LogoMasjid.png') }}" alt="small logo">
                 </span>
             </a>
 

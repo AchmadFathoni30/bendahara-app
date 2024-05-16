@@ -52,7 +52,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/EditCategory', [CategoriCreditController::class, 'EditCategory'])->name('EditCategory');
     Route::delete('/HapusCategory', [CategoriCreditController::class, 'HapusCategory'])->name('HapusCategory');
 
-    
-    Route::get('/UangMasuk', [UangMasukController::class, 'viewUangMasuk']);
-    Route::get('/UangKeluar', [UangKeluarController::class, 'viewUangKeluar']);
+    // Transaksi Uang Masuk
+    Route::get('/UangMasuk', [UangMasukController::class, 'viewUangMasuk']);;
+    Route::get('/fetchAllUangMasuk', [UangMasukController::class, 'fetchAllUangMasuk'])->name('fetchAllUangMasuk');
+    //Route::post('/InsertUangMasuk', [UangMasukController::class, 'inputUangMasuk'])->name('inputUangMasuk');
+
+    // Transaksi Uang Keluar
+    Route::get('/UangKeluar', [UangKeluarController::class, 'index']);
+    Route::get('/fetchAllUangKeluar', [UangKeluarController::class, 'fetchAllUangKeluar'])->name('fetchAllUangKeluar');
 });
